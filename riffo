@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# riffo - AI-powered PDF renamer
+# Wrapper script for PDFs-AI-rename
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+export OPENAI_API_KEY="${OPENAI_API_KEY:-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}"
+source "$SCRIPT_DIR/.venv/bin/activate"
+python "$SCRIPT_DIR/pdfs_ai_rename.py" "$@"
